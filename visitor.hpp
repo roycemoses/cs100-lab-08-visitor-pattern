@@ -21,7 +21,7 @@ class CountVisitor{
         void visit_mult();
         int mult_count();
         void visit_div() { ++divs; };
-        int div_count();
+        int div_count() { return divs; };
         void visit_add();
         int add_count();
         void visit_sub();
