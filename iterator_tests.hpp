@@ -77,6 +77,8 @@ TEST(CreateIteratorTests, IterateOp)
     EXPECT_EQ(two->evaluate(), 2);
     EXPECT_EQ(two->stringify(), "2.000000");
     Iterator* it = two->create_iterator();
+    EXPECT_TRUE(it->is_done());
+    EXPECT_TRUE(it->current() == nullptr);
 }
 
 
