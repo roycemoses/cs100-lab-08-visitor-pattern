@@ -13,6 +13,7 @@ class Pow : public Base {
         Pow(Base* base, Base* power) : base(base), power(power), Base() { this->setValue(evaluate()); }
         virtual double evaluate() { return pow(base->getValue(), power->getValue()); }
         virtual std::string stringify() { return base->stringify() + std::string(" ** ") + power->stringify(); }
+        virtual Iterator* create_iterator() { return new BinaryIterator(this); }
 };
 
 #endif // __POW_HPP__
