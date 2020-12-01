@@ -3,6 +3,7 @@
 
 #include <string>
 #include "iterator.hpp"
+#include "visitor.hpp"
 
 class Iterator;
 
@@ -19,6 +20,7 @@ class Base {
         virtual Iterator* create_iterator() = 0;
         virtual Base* get_left() = 0;
         virtual Base* get_right() = 0;
+        virtual void accept(CountVisitor* cv) = 0;
 
         /* Public Functions */
         double getValue() { return this->value; }
