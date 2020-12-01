@@ -92,10 +92,44 @@ TEST(CreateIteratorTests, IterateDiv)
     EXPECT_EQ(it->current()->evaluate(), 1);
     EXPECT_EQ(it->current()->stringify(), "1.000000");
 
+    it->next();
+
     EXPECT_TRUE(it->is_done());
     EXPECT_TRUE(it->current() == nullptr);
 }
 
+TEST(CreateIteratorTests, IterateLargerDiv)
+{
+    Base* value1 = new Op(2);
+    Base* value2 = new Op(1);
+    Base* div = new Div(value1, value2);
+    Base* value3 = new Op(4);
+    Base* value4 = new Op(1);
+    Base* div2 = new Div(value3, value4);
+    Base* div3 = new Div(div, div2);
+    
+    EXPECT_EQ(div3->evaluate(), 0.5);
+    EXPECT_EQ(div3->stringify(), "2.000000 / 1.000000 / 4.000000 / 1.000000");
+
+    Iterator* it = div3->create_iterator();
+
+    EXPECT_FALSE(it->is_done());
+
+    EXPECT_EQ(it->current()->evaluate(), 2);
+    EXPECT_EQ(it->current()->stringify(), "2.000000 / 1.000000");
+
+    it->next();
+
+    EXPECT_FALSE(it->is_done());
+
+    EXPECT_EQ(it->current()->evaluate(), 4);
+    EXPECT_EQ(it->current()->stringify(), "4.000000 / 1.000000");
+
+    it->next();
+
+    EXPECT_TRUE(it->is_done());
+    EXPECT_TRUE(it->current() == nullptr);
+}
 
 
 
