@@ -8,6 +8,9 @@ class Op : public Base {
         Op(double value) : Base() { this->setValue(value); }
         virtual double evaluate() { return this->getValue(); }
         virtual std::string stringify() { return std::to_string(evaluate()); }
+        virtual Iterator* create_iterator() { return new NullIterator(this); }
+        virtual Base* get_left() { return nullptr; }
+        virtual Base* get_right() { return nullptr; }
 };
 
 #endif //__OP_HPP__
