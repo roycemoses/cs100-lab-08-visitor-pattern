@@ -14,7 +14,7 @@ class CountVisitor{
     public:
         CountVisitor();
 
-        void visit_op();
+        void visit_op() { ++ops; };
         int op_count();
         void visit_rand();
         int rand_count();
