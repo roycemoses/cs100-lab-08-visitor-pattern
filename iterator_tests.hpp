@@ -27,6 +27,26 @@ TEST(CreateIteratorTests, IterateSub)
     EXPECT_EQ(it->current()->stringify(), "1.000000");
 }
 
+TEST(CreateIteratorTests, IterateDiv)
+{
+    Base* value1 = new Op(2);
+    Base* value2 = new Op(1);
+    Base* div = new Div(value1, value2);
+    
+    EXPECT_EQ(div->evaluate(), 2);
+    EXPECT_EQ(div->stringify(), "2.000000 / 1.000000");
+
+    Iterator* it = div->create_iterator();
+
+    EXPECT_EQ(it->current()->evaluate(), 2);
+    EXPECT_EQ(it->current()->stringify(), "2.000000");
+
+    it->next();
+
+    EXPECT_EQ(it->current()->evaluate(), 1);
+    EXPECT_EQ(it->current()->stringify(), "1.000000");
+}
+
 
 
 
