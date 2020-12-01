@@ -14,6 +14,8 @@ class Pow : public Base {
         virtual double evaluate() { return pow(base->getValue(), power->getValue()); }
         virtual std::string stringify() { return base->stringify() + std::string(" ** ") + power->stringify(); }
         virtual Iterator* create_iterator() { return new BinaryIterator(this); }
+        virtual Base* get_left() { return base; }
+        virtual Base* get_right() { return power; }        
 };
 
 #endif // __POW_HPP__
