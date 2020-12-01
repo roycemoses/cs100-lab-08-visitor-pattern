@@ -75,6 +75,32 @@ TEST(CreateIteratorTests, IterateMult)
     EXPECT_TRUE(it->current() == nullptr);
 }
 
+TEST(CreateIteratorTests, IterateMultTree)
+{
+    Base* one = new Op(1);
+    Base* two = new Op(2);
+    Base* three = new Op(3);
+    Base* four = new Op(4);
+    Base* mult1 = new Mult(one, four);
+    Base* mult2 = new Mult(two, three);
+    Base* mult3 = new Mult(mult1, mult2);
+    
+
+    EXPECT_EQ(mult3->evaluate(), 24);
+    EXPECT_EQ(mult3->stringify(), "1.000000 * 4.000000 * 2.000000 * 3.000000");
+    Iterator* it = mult3->create_iterator();
+    EXPECT_FALSE(it->is_done());
+    EXPECT_EQ(it->current()->evaluate(), 4);
+    EXPECT_EQ(it->current()->stringify(), "1.000000 * 4.000000");
+    it->next();
+    EXPECT_FALSE(it->is_done());    
+    EXPECT_EQ(it->current()->evaluate(), 6);
+    EXPECT_EQ(it->current()->stringify(), "2.000000 * 3.000000");
+    it->next();
+    EXPECT_TRUE(it->is_done());
+    EXPECT_TRUE(it->current() == nullptr);    
+}
+
 TEST(CreateIteratorTests, IteratePow)
 {
     Base* two = new Op(2);
