@@ -80,13 +80,20 @@ TEST(CreateIteratorTests, IterateDiv)
 
     Iterator* it = div->create_iterator();
 
+    EXPECT_FALSE(it->is_done());
+
     EXPECT_EQ(it->current()->evaluate(), 2);
     EXPECT_EQ(it->current()->stringify(), "2.000000");
 
     it->next();
 
+    EXPECT_FALSE(it->is_done());
+
     EXPECT_EQ(it->current()->evaluate(), 1);
     EXPECT_EQ(it->current()->stringify(), "1.000000");
+
+    EXPECT_TRUE(it->is_done());
+    EXPECT_TRUE(it->current() == nullptr);
 }
 
 
