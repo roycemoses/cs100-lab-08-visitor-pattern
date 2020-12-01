@@ -16,7 +16,7 @@ class CountVisitor{
 
         void visit_op();
         int op_count();
-        void visit_rand();
+        void visit_rand() { ++rands; };
         int rand_count();
         void visit_mult();
         int mult_count();
