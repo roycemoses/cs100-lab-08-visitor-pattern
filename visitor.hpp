@@ -23,7 +23,7 @@ class CountVisitor{
         void visit_div();
         int div_count();
         void visit_add() { ++add; }
-        int add_count();
+        int add_count() { return add; }
         void visit_sub();
         int sub_count();
         void visit_pow();
