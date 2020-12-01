@@ -12,6 +12,8 @@ class Add : public Base {
         virtual double evaluate() { return value1->getValue() + value2->getValue(); }
         virtual std::string stringify() { return value1->stringify() + std::string(" + ") + value2->stringify(); }
         virtual Iterator* create_iterator() { return new BinaryIterator(this); }
+        virtual Base* get_left() { return value1; }
+        virtual Base* get_right() { return value2; }
 };
 
 #endif // __ADD_HPP__
