@@ -23,5 +23,21 @@ TEST(CreateIteratorTests, IterateAdd)
     EXPECT_EQ(it->current()->stringify(), "4.000000");
 }
 
+TEST(CreateIteratorTests, IterateMult)
+{
+    Base* three = new Op(3);
+    Base* five = new Op(5);
+    Base* mult = new Mult(three, five);
+
+    EXPECT_EQ(mult->evaluate(), 15);
+    EXPECT_EQ(mult->stringify(), "3.000000 * 5.000000");
+    Iterator* it = mult->create_iterator();
+    EXPECT_EQ(it->current()->evaluate(), 3);
+    EXPECT_EQ(it->current()->stringify(), "3.000000");
+    it->next();
+    EXPECT_EQ(it->current()->evaluate(), 5);
+    EXPECT_EQ(it->current()->stringify(), "5.000000");
+}
+
 
 #endif // ITERATOR_TESTS_HPP
