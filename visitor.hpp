@@ -24,7 +24,7 @@ class CountVisitor{
         int div_count() { return divs; };
         void visit_add();
         int add_count();
-        void visit_sub();
+        void visit_sub() { ++sub; };
         int sub_count();
         void visit_pow();
         int pow_count();
