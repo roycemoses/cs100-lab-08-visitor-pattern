@@ -32,11 +32,16 @@ TEST(CreateIteratorTests, IterateMult)
     EXPECT_EQ(mult->evaluate(), 15);
     EXPECT_EQ(mult->stringify(), "3.000000 * 5.000000");
     Iterator* it = mult->create_iterator();
+    EXPECT_FALSE(it->is_done());
     EXPECT_EQ(it->current()->evaluate(), 3);
     EXPECT_EQ(it->current()->stringify(), "3.000000");
     it->next();
+    EXPECT_FALSE(it->is_done());
     EXPECT_EQ(it->current()->evaluate(), 5);
     EXPECT_EQ(it->current()->stringify(), "5.000000");
+    it->next();
+    EXPECT_TRUE(it->is_done());
+    EXPECT_TRUE(it->current() == nullptr);
 }
 
 TEST(CreateIteratorTests, IteratePow)
