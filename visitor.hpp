@@ -19,7 +19,7 @@ class CountVisitor{
         void visit_rand();
         int rand_count();
         void visit_mult() { ++mults; }
-        int mult_count();
+        int mult_count() { return mults; }
         void visit_div();
         int div_count();
         void visit_add();
