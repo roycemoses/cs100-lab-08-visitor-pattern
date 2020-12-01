@@ -26,7 +26,7 @@ class CountVisitor{
         int add_count() { return add; }
         void visit_sub();
         int sub_count();
-        void visit_pow();
+        void visit_pow() { ++pow; }
         int pow_count();
 
 };
