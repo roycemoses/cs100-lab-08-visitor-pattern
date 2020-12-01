@@ -8,6 +8,7 @@ class Rand : public Base {
         Rand() : Base() { this->setValue(rand() % 100); }
         virtual double evaluate() { return this->getValue(); }
         virtual std::string stringify() { return std::to_string(evaluate()); }
+        virtual Iterator* create_iterator() { return new NullIterator(this); }
 };
 
 #endif //__RAND_HPP__

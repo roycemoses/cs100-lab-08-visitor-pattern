@@ -11,6 +11,7 @@ class Sub : public Base {
         Sub(Base* value1, Base* value2) : value1(value1), value2(value2), Base() { this->setValue(evaluate()); }
         virtual double evaluate() { return value1->getValue() - value2->getValue(); }
         virtual std::string stringify() { return value1->stringify() + std::string(" - ") + value2->stringify(); }
+        virtual Iterator* create_iterator() { return new BinaryIterator(this); }
 };
 
 #endif // __SUB_HPP__
