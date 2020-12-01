@@ -131,6 +131,14 @@ TEST(CreateIteratorTests, IterateLargerDiv)
     EXPECT_TRUE(it->current() == nullptr);
 }
 
+TEST(CreateIteratorTests, IterateRand)
+{
+    Base* value1 = new Rand();
 
+    Iterator* it = value1->create_iterator();
+    
+    EXPECT_TRUE(it->is_done());
+    EXPECT_TRUE(it->current() == nullptr);
+}
 
 #endif // ITERATOR_TESTS_HPP
