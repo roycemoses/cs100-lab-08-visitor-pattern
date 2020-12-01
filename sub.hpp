@@ -14,6 +14,7 @@ class Sub : public Base {
         virtual Iterator* create_iterator() { return new BinaryIterator(this); }
         virtual Base* get_left() { return value1; }
         virtual Base* get_right() { return value2; }
+        virtual void accept(CountVisitor* cv) { cv->visit_sub(); }
 };
 
 #endif // __SUB_HPP__
