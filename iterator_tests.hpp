@@ -48,11 +48,25 @@ TEST(CreateIteratorTests, IteratePow)
     EXPECT_EQ(pow->evaluate(), 64);
     EXPECT_EQ(pow->stringify(), "2.000000 ** 6.000000");
     Iterator* it = pow->create_iterator();
+    EXPECT_FALSE(it->is_done());
     EXPECT_EQ(it->current()->evaluate(), 2);
     EXPECT_EQ(it->current()->stringify(), "2.000000");
     it->next();
+    EXPECT_FALSE(it->is_done());
     EXPECT_EQ(it->current()->evaluate(), 6);
     EXPECT_EQ(it->current()->stringify(), "6.000000");
+    it->next();
+    EXPECT_TRUE(it->is_done());
+    EXPECT_TRUE(it->current() == nullptr);
+}
+
+TEST(CreateIteratorTests, IterateOp)
+{
+    Base* two = new Op(2);
+
+    EXPECT_EQ(two->evaluate(), 2);
+    EXPECT_EQ(two->stringify(), "2.000000");
+    Iterator* it = two->create_iterator();
 }
 
 
