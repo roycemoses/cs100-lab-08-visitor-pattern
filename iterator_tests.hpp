@@ -122,6 +122,32 @@ TEST(CreateIteratorTests, IteratePow)
     EXPECT_TRUE(it->current() == nullptr);
 }
 
+TEST(CreateIteratorTests, IteratePowTree)
+{
+    Base* one = new Op(1);
+    Base* two = new Op(2);
+    Base* three = new Op(3);
+    Base* four = new Op(4);
+    Base* pow1 = new Pow(two, one);
+    Base* pow2 = new Pow(two, three);
+    Base* pow3 = new Pow(pow1, pow2);
+    
+
+    EXPECT_EQ(pow3->evaluate(), 256);
+    EXPECT_EQ(pow3->stringify(), "2.000000 ** 1.000000 ** 2.000000 ** 3.000000");
+    Iterator* it = pow3->create_iterator();
+    EXPECT_FALSE(it->is_done());
+    EXPECT_EQ(it->current()->evaluate(), 2);
+    EXPECT_EQ(it->current()->stringify(), "2.000000 ** 1.000000");
+    it->next();
+    EXPECT_FALSE(it->is_done());    
+    EXPECT_EQ(it->current()->evaluate(), 8);
+    EXPECT_EQ(it->current()->stringify(), "2.000000 ** 3.000000");
+    it->next();
+    EXPECT_TRUE(it->is_done());
+    EXPECT_TRUE(it->current() == nullptr);    
+}
+
 TEST(CreateIteratorTests, IterateOp)
 {
     Base* two = new Op(2);
