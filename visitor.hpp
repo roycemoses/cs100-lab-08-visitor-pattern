@@ -16,16 +16,16 @@ class CountVisitor{
 
         void visit_op();
         int op_count();
-        void visit_rand();
-        int rand_count();
+        void visit_rand() { ++rands; };
+        int rand_count() { return rands; };
         void visit_mult();
         int mult_count();
-        void visit_div();
-        int div_count();
+        void visit_div() { ++divs; };
+        int div_count() { return divs; };
         void visit_add();
         int add_count();
-        void visit_sub();
-        int sub_count();
+        void visit_sub() { ++sub; };
+        int sub_count() { return sub; };
         void visit_pow();
         int pow_count();
 

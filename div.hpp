@@ -14,6 +14,7 @@ class Div : public Base {
         virtual Iterator* create_iterator() { return new BinaryIterator(this); }
         virtual Base* get_left() { return value1; }
         virtual Base* get_right() { return value2; }
+        virtual void accept(CountVisitor* cv) { cv->visit_div(); }
 };
 
 #endif // __DIV_HPP__
