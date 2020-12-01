@@ -15,7 +15,8 @@ class Pow : public Base {
         virtual std::string stringify() { return base->stringify() + std::string(" ** ") + power->stringify(); }
         virtual Iterator* create_iterator() { return new BinaryIterator(this); }
         virtual Base* get_left() { return base; }
-        virtual Base* get_right() { return power; }        
+        virtual Base* get_right() { return power; }
+        virtual void accept(CountVisitor* cv) { cv->visit_pow(); }
 };
 
 #endif // __POW_HPP__
