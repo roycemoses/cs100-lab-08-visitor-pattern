@@ -56,4 +56,23 @@ TEST(CountVisitorTests, CountSubs)
     EXPECT_EQ(cv.rand_count(), 1);
 }
 
+TEST(CountVisitorTests, CountNoSubs)
+{
+    CountVisitor cv;
+    Base* value1 = new Rand();
+    Base* rand = new Rand();
+
+    Base* dummy = new Sub(value1, rand);
+    Iterator* it = new PreorderIterator(dummy);
+    it->first();
+
+    do {
+        it->current()->accept(&cv);
+        it->next();
+    } while (!it->is_done());
+
+    EXPECT_EQ(cv.sub_count(), 0);
+    EXPECT_EQ(cv.rand_count(), 2);
+}
+
 #endif // COUNT_VISITOR_TESTS_HPP
