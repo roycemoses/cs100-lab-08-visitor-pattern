@@ -30,4 +30,24 @@ TEST(CountVisitorTests, CountAdd)
     EXPECT_EQ(cv.rand_count(), 1);
 }
 
+TEST(CountVisitorTests, CountMult)
+{
+    CountVisitor cv;
+    Base* rand = new Rand;
+    Base* two = new Op(2);
+    Base* four = new Op(4);
+    Base* mult = new Mult(two, four);
+    Base* dummy = new Add(mult, rand);
+    Iterator* it = new PreorderIterator(dummy);
+    it->first();
+    do {
+        it->current()->accept(&cv);
+        it->next();
+    } while (!it->is_done());
+
+    EXPECT_EQ(cv.mult_count(), 1);
+    EXPECT_EQ(cv.op_count(), 2);
+    EXPECT_EQ(cv.rand_count(), 1);
+}
+
 #endif // COUNT_VISITOR_TESTS_HPP
