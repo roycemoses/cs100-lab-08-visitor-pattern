@@ -10,6 +10,24 @@
 #include "div.hpp"
 #include "rand.hpp"
 
+TEST(CountVisitorTests, CountOp)
+{
+    CountVisitor cv;
+    Base* two = new Op(2);
+    Base* four = new Op(4);
+    Base* add = new Add(two, four);
+    Base* dummy = new Add(add, add);
+    Iterator* it = new PreorderIterator(dummy);
+    it->first();
+    do {
+        it->current()->accept(&cv);
+        it->next();
+    } while (!it->is_done());
+
+    EXPECT_EQ(cv.add_count(), 2);
+    EXPECT_EQ(cv.op_count(), 4);
+}
+
 TEST(CountVisitorTests, CountAdd)
 {
     CountVisitor cv;
