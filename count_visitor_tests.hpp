@@ -114,5 +114,30 @@ TEST(CountVisitorTests, CountManyAdds)
     EXPECT_EQ(cv.op_count(), 16);
 }
 
+TEST(CountVisitorTests, CountManyMults)
+{
+    CountVisitor cv;
+    Base* one = new Op(1);
+    Base* two = new Op(2);
+    Base* mult1 = new Mult(one, two); // 1 Mult, 1 * 2
+    Base* mult2 = new Mult(mult1, mult1); // 3 Mults, 2 * 2
+    Base* mult3 = new Mult(mult2, mult2); // 7 Mults, 4 * 4
+    Base* mult4 = new Mult(mult3, mult3); // 15 Mults, 16 * 16
+
+    EXPECT_EQ(mult4->evaluate(), 256);
+    EXPECT_EQ(mult4->stringify(), 
+        "1.000000 * 2.000000 * 1.000000 * 2.000000 * 1.000000 * 2.000000 * 1.000000 * 2.000000 * "
+        "1.000000 * 2.000000 * 1.000000 * 2.000000 * 1.000000 * 2.000000 * 1.000000 * 2.000000");
+
+    Iterator* it = new PreorderIterator(mult4);
+    it->first();
+    do {
+        it->current()->accept(&cv);
+        it->next();
+    } while (!it->is_done());
+
+    EXPECT_EQ(cv.mult_count(), 14);
+    EXPECT_EQ(cv.op_count(), 16);
+}
 
 #endif // COUNT_VISITOR_TESTS_HPP
