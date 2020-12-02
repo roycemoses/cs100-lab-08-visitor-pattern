@@ -57,7 +57,7 @@ TEST(CountVisitorTests, CountSubs)
 }
 
 TEST(CountVisitorTests, CountRand)
-{
+{ 
     CountVisitor cv;
     Base* value1 = new Op(1);
     Base* rand = new Rand();
