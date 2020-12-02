@@ -219,4 +219,20 @@ TEST(CountVisitorTests, CountNoPows)
     EXPECT_EQ(cv.add_count(), 2);
     EXPECT_EQ(cv.op_count(), 4);
 }
+
+TEST(CountVisitorTests, EmptyTree)
+{
+    CountVisitor cv;
+    Base* two = new Op(2);
+    Iterator* it = new PreorderIterator(two);
+    it->first();
+
+    EXPECT_EQ(cv.add_count(), 0);
+    EXPECT_EQ(cv.sub_count(), 0);
+    EXPECT_EQ(cv.mult_count(), 0);
+    EXPECT_EQ(cv.div_count(), 0);
+    EXPECT_EQ(cv.pow_count(), 0);
+    EXPECT_EQ(cv.op_count(), 0);
+    EXPECT_EQ(cv.rand_count(), 0);
+}
 #endif // COUNT_VISITOR_TESTS_HPP
