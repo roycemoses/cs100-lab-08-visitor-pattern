@@ -162,4 +162,23 @@ TEST(CountVisitorTests, CountManyPows)
     EXPECT_EQ(cv.pow_count(), 2);
     EXPECT_EQ(cv.op_count(), 4);
 }
+
+TEST(CountVisitorTests, CountNoAdds)
+{
+    CountVisitor cv;
+    Base* two = new Op(2);
+    Base* four = new Mult(two, two);
+    Base* sixteen = new Mult(four, four);
+
+    Iterator* it = new PreorderIterator(sixteen);
+    it->first();
+    do {
+        it->current()->accept(&cv);
+        it->next();
+    } while (!it->is_done());
+
+    EXPECT_EQ(cv.add_count(), 0);
+    EXPECT_EQ(cv.mult_count(), 2);
+    EXPECT_EQ(cv.op_count(), 4);
+}
 #endif // COUNT_VISITOR_TESTS_HPP
