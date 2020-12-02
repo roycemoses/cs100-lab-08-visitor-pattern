@@ -88,4 +88,31 @@ TEST(CountVisitorTests, CountPow)
     EXPECT_EQ(cv.rand_count(), 1);
 }
 
+TEST(CountVisitorTests, CountManyAdds)
+{
+    CountVisitor cv;
+    Base* two = new Op(2);
+    Base* four = new Op(4);
+    Base* six = new Add(two, four); // 1 Add
+    Base* twelve = new Add(six, six); // 3 Adds
+    Base* twenty_four = new Add(twelve, twelve); // 7 Adds
+    Base* forty_eight = new Add(twenty_four, twenty_four); // 15 Adds
+
+    EXPECT_EQ(forty_eight->evaluate(), 48);
+    EXPECT_EQ(forty_eight->stringify(), 
+        "2.000000 + 4.000000 + 2.000000 + 4.000000 + 2.000000 + 4.000000 + 2.000000 + 4.000000 + "
+        "2.000000 + 4.000000 + 2.000000 + 4.000000 + 2.000000 + 4.000000 + 2.000000 + 4.000000");
+
+    Iterator* it = new PreorderIterator(forty_eight);
+    it->first();
+    do {
+        it->current()->accept(&cv);
+        it->next();
+    } while (!it->is_done());
+
+    EXPECT_EQ(cv.add_count(), 14);
+    EXPECT_EQ(cv.op_count(), 16);
+}
+
+
 #endif // COUNT_VISITOR_TESTS_HPP
