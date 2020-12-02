@@ -75,6 +75,28 @@ TEST(CountVisitorTests, CountRand)
     EXPECT_EQ(cv.rand_count(), 1);
 }
 
+TEST(CountVisitorTests, CountDiv)
+{ 
+    CountVisitor cv;
+    Base* value1 = new Op(2);
+    Base* value2 = new Op(1);
+    Base* div = new Div(value1, value2);
+    Base* rand = new Rand();
+
+    Base* dummy = new Sub(div, rand);
+    Iterator* it = new PreorderIterator(dummy);
+    it->first();
+
+    do {
+        it->current()->accept(&cv);
+        it->next();
+    } while (!it->is_done());
+
+    EXPECT_EQ(cv.div_count(), 1);
+    EXPECT_EQ(cv.op_count(), 2);
+    EXPECT_EQ(cv.rand_count(), 1);
+}
+
 TEST(CountVisitorTests, CountDivs)
 {
     CountVisitor cv;
