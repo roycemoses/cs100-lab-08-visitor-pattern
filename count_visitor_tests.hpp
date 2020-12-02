@@ -140,4 +140,26 @@ TEST(CountVisitorTests, CountManyMults)
     EXPECT_EQ(cv.op_count(), 16);
 }
 
+TEST(CountVisitorTests, CountManyPows)
+{
+    CountVisitor cv;
+    Base* two = new Op(2);
+    Base* four = new Pow(two, two); // 1 Pow, 2 ** 2
+    Base* sixteen = new Pow(two, four); // 2 Pows, 2 ** 4
+    Base* result = new Pow(two, sixteen); // 3 Pows, 2 * 16
+
+    EXPECT_EQ(result->evaluate(), 65536);
+    EXPECT_EQ(result->stringify(), 
+        "2.000000 ** 2.000000 ** 2.000000 ** 2.000000");
+
+    Iterator* it = new PreorderIterator(result);
+    it->first();
+    do {
+        it->current()->accept(&cv);
+        it->next();
+    } while (!it->is_done());
+
+    EXPECT_EQ(cv.pow_count(), 2);
+    EXPECT_EQ(cv.op_count(), 4);
+}
 #endif // COUNT_VISITOR_TESTS_HPP
