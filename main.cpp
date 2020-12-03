@@ -50,5 +50,5 @@ int main(int, char**)
 
     cout << "root->stringify(): " << div->stringify() << endl;
     cout << "root->evaluate(): " << div->evaluate() << endl;
-    cout << "(does NOT include dummy node and its value)" << endl << endl;
+    cout << "Note: stringify() and evaluate() do NOT include the dummy node and its value (or else Rand() would be part of the result)" << endl << endl;
 }
